@@ -15,6 +15,7 @@ searchForm.addEventListener('submit', searchImages);
 function searchImages(event) {
   event.preventDefault();
   const text = searchInput.value.trim();
+
   if (text === '') {
     iziToast.error({
       title: 'Error',
@@ -23,14 +24,16 @@ function searchImages(event) {
     });
     return;
   }
+
   const params = new URLSearchParams({
     key: API_KEY,
     q: text,
     image_type: 'photo',
     orientation: 'horizontal',
-    safesearch: true,
+    safesearch: 'true',
   });
-  fetch(`https://pixabay.com/api?${params.toString()}`)
+
+  fetch(`https://pixabay.com/api?${params}`)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.status);
@@ -40,30 +43,43 @@ function searchImages(event) {
     .then(data =>
       gallery.insertAdjacentHTML('beforeend', createGallery(data.hits))
     )
-    .catch(error =>
-      iziToast.error({
-        title: 'Error',
-        message: `"Sorry, there are no images matching your search query. Please try again!"`,
-        position: 'topRight',
-      })
-    );
+    .catch(error => {
+      if (data.hits.length === 0) {
+        iziToast.error({
+          title: 'Error',
+          message: `"Sorry, there are no images matching your search query. Please try again!"`,
+          position: 'topRight',
+        });
+      }
+    });
 }
 
 function createGallery(arr) {
   return arr
     .map(
-      ({ id, previewURL, tags }) => `
+      ({
+        webformatURL,
+        largeImageURL,
+        tags,
+        id,
+        likes,
+        views,
+        comments,
+        downloads,
+      }) => `
     <li class="gallery-item" data-id = ${id}>
-          <img
-            class="gallery-image"
-            src="${previewURL}"
-            alt="${tags}" />
-      </li>`
+        <a class="gallery-link" href="${largeImageURL}">
+            <img
+                class="gallery-image"
+                src="${webformatURL}"
+                alt="${tags}" />
+        </a>
+    </li>`
     )
     .join('');
 }
 
-const lightbox = new SimpleLightbox('gallery', {
+const lightbox = new SimpleLightbox('gallery a', {
   captions: true,
   captionsData: 'alt',
   captionPosition: 'bottom',
