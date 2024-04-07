@@ -52,7 +52,6 @@ function fetchImages(text) {
       return response.json();
     })
     .then(data => {
-      loader.style.display = 'none';
       if (data.hits.length === 0) {
         iziToast.error({
           title: 'Error',
@@ -66,7 +65,6 @@ function fetchImages(text) {
     })
 
     .catch(error => {
-      loader.style.display = 'none';
       iziToast.error({
         title: 'Error',
         message: `"Sorry, there are no images matching your search query. Please try again!"`,
@@ -94,20 +92,14 @@ function createGallery(arr) {
                 class="gallery-image"
                 src="${webformatURL}"
                 alt="${tags}" />
-                <p>likes  views  comments  downloads</p>
-                <p>${likes}  ${views}  ${comments} ${downloads}</p>
+                <figcaption>likes${likes}  views${views}  comments${comments}  downloads${downloads}</figcaption>
+               
         </a>
     </li>`
     )
     .join('');
 }
 
-const lightbox = new SimpleLightbox('gallery a', {
-  captions: true,
-  captionsData: 'alt',
-  captionPosition: 'bottom',
-  captionDelay: 250,
-  navText,
-});
+const lightbox = new SimpleLightbox('gallery a', {});
 
 lightbox.refresh();
