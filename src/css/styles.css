@@ -38,3 +38,20 @@ button[type='submit'] {
 button[type='submit']:hover {
   background: #6c8cff;
 }
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 24px;
+  row-gap: 24px;
+  max-width: 1440px;
+}
+
+.gallery-image {
+  width: 360px;
+  height: 200px;
+}
+.sl-wrapper {
+  background: rgba(46, 47, 66, 0.8);
+}
