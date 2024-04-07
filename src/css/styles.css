@@ -45,13 +45,14 @@ button[type='submit']:hover {
   justify-content: center;
   column-gap: 24px;
   row-gap: 24px;
-  max-width: 1440px;
+  max-width: 1128px;
 }
 
 .gallery-image {
   width: 360px;
   height: 200px;
 }
+
 .sl-wrapper {
   background: rgba(46, 47, 66, 0.8);
 }
