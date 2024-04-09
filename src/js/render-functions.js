@@ -16,11 +16,34 @@ export function createGallery(arr) {
             <img
                 class="gallery-image"
                 src="${webformatURL}"
-                alt="${tags}" />
-                
-               
+                alt="${tags}" />    
         </a>
+        <div class = "img-inform-wrapper">
+                 <div class = "img-inform">
+                 <h2 class ="img-title">Likes</h2>
+                 <p class = "img-text">${likes}</p>
+                 </div>
+                  <div class = "img-inform">
+                 <h2 class ="img-title">Views</h2>
+                 <p class = "img-text">${views}</p>
+                 </div>
+                  <div class = "img-inform">
+                 <h2 class ="img-title">Comments</h2>
+                 <p class = "img-text">${comments}</p>
+                 </div>
+                  <div class = "img-inform">
+                 <h2 class ="img-title">Downloads</h2>
+                 <p class = "img-text">${downloads}</p>
+                 </div></div>
     </li>`
     )
     .join('');
+}
+
+export function showLoading(element) {
+  element.style.display = 'block';
+}
+
+export function hideLoading(element) {
+  element.style.display = 'none';
 }

@@ -1,5 +1,7 @@
 import { fetchImages } from './js/pixabay-api.js';
 import { createGallery } from './js/render-functions.js';
+import { showLoading } from './js/render-functions.js';
+import { hideLoading } from './js/render-functions.js';
 
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
@@ -8,17 +10,8 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const gallery = document.querySelector('.gallery');
-
-const lightbox = new SimpleLightbox('gallery a', {
-  captions: true,
-  captionsData: 'alt',
-  captionPosition: 'bottom',
-  captionDelay: 250,
-  nav: true,
-  close: true,
-});
-
 const searchForm = document.querySelector('.search-form');
+const loader = document.querySelector('.loading-indicator');
 
 searchForm.addEventListener('submit', searchImages);
 
@@ -28,26 +21,30 @@ function searchImages(event) {
   const query = event.currentTarget.elements.search.value.trim();
 
   if (query === '') {
-    iziToast.error({
+    return iziToast.error({
       title: 'Error',
       message: 'Please enter a search images',
       position: 'topRight',
     });
-    return;
   }
+
+  showLoading(loader);
+
   fetchImages(query)
     .then(data => {
       console.log(data);
       if (data.hits.length === 0) {
-        iziToast.error({
+        hideLoading(loader);
+        return iziToast.error({
           title: 'Error',
           message:
             'Sorry, there are no images matching your search query. Please try again!',
           position: 'topRight',
         });
-      } else {
-        gallery.insertAdjacentHTML('beforeend', createGallery(data.hits));
       }
+      searchForm.reset();
+      gallery.innerHTML = createGallery(data.hits);
+      lightbox.refresh();
     })
     .catch(error => {
       iziToast.error({
@@ -55,5 +52,15 @@ function searchImages(event) {
         message: `"Sorry, there are no images matching your search query. Please try again!"`,
         position: 'topRight',
       });
+    })
+    .finally(() => {
+      hideLoading(loader);
     });
 }
+
+let lightbox = new SimpleLightbox('.gallery a', {
+  captions: true,
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  captionDelay: 250,
+});
