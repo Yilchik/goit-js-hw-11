@@ -10,7 +10,7 @@ export function fetchImages(query) {
     safesearch: 'true',
   });
 
-  const url = `${BASE_URL}?${params}`;
+  const url = '${BASE_URL}?${params}';
 
   return fetch(url).then(response => {
     if (!response.ok) {
