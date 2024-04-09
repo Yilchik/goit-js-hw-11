@@ -1,4 +1,9 @@
 /* Reset styles */
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #2e2f42;
+}
+
 h1,
 h2,
 h3,
