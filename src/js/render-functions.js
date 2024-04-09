@@ -1,6 +1,4 @@
 export function createGallery(arr) {
-  const gallery = document.querySelector('.gallery');
-  gallery.innerHTML = '';
   return arr
     .map(
       ({
@@ -19,7 +17,7 @@ export function createGallery(arr) {
                 class="gallery-image"
                 src="${webformatURL}"
                 alt="${tags}" />
-                <figcaption>likes${likes}  views${views}  comments${comments}  downloads${downloads}</figcaption>
+                
                
         </a>
     </li>`
