@@ -1,12 +1,27 @@
-import{S as l,i as n}from"./assets/vendor-8c59ed88.js";(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))s(e);new MutationObserver(e=>{for(const r of e)if(r.type==="childList")for(const a of r.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&s(a)}).observe(document,{childList:!0,subtree:!0});function o(e){const r={};return e.integrity&&(r.integrity=e.integrity),e.referrerPolicy&&(r.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?r.credentials="include":e.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function s(e){if(e.ep)return;e.ep=!0;const r=o(e);fetch(e.href,r)}})();const u="43275871-c76d4a7895f35b3cf58095282",m="https://pixabay.com/api";function f(i){const t=new URLSearchParams({key:u,q:i,image_type:"photo",orientation:"horizontal",safesearch:"true"}),o=`${m}?${t}`;return fetch(o).then(s=>{if(!s.ok)throw new Error(s.status);return s.json()})}function h(i){return i.map(({webformatURL:t,largeImageURL:o,tags:s,id:e,likes:r,views:a,comments:y,downloads:d})=>`
+import{i as n,S as h}from"./assets/vendor-8c59ed88.js";(function(){const i=document.createElement("link").relList;if(i&&i.supports&&i.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))s(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const a of t.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&s(a)}).observe(document,{childList:!0,subtree:!0});function o(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?t.credentials="include":e.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function s(e){if(e.ep)return;e.ep=!0;const t=o(e);fetch(e.href,t)}})();const d="43275871-c76d4a7895f35b3cf58095282",p="https://pixabay.com/api";function y(r){const i=new URLSearchParams({key:d,q:r,image_type:"photo",orientation:"horizontal",safesearch:"true"}),o=`${p}?${i}`;return fetch(o).then(s=>{if(!s.ok)throw new Error(s.status);return s.json()})}function v(r){return r.map(({webformatURL:i,largeImageURL:o,tags:s,id:e,likes:t,views:a,comments:g,downloads:f})=>`
     <li class="gallery-item" data-id = ${e}>
         <a class="gallery-link" href="${o}">
             <img
                 class="gallery-image"
-                src="${t}"
-                alt="${s}" />
-                
-               
+                src="${i}"
+                alt="${s}" />    
         </a>
-    </li>`).join("")}const c=document.querySelector(".gallery");new l("gallery a",{captions:!0,captionsData:"alt",captionPosition:"bottom",captionDelay:250,nav:!0,close:!0});const g=document.querySelector(".search-form");g.addEventListener("submit",p);function p(i){i.preventDefault(),c.innerHTML="";const t=i.currentTarget.elements.search.value.trim();if(t===""){n.error({title:"Error",message:"Please enter a search images",position:"topRight"});return}f(t).then(o=>{console.log(o),o.hits.length===0?n.error({title:"Error",message:"Sorry, there are no images matching your search query. Please try again!",position:"topRight"}):c.insertAdjacentHTML("beforeend",h(o.hits))}).catch(o=>{n.error({title:"Error",message:'"Sorry, there are no images matching your search query. Please try again!"',position:"topRight"})})}
+        <div class = "img-inform-wrapper">
+                 <div class = "img-inform">
+                 <h2 class ="img-title">Likes</h2>
+                 <p class = "img-text">${t}</p>
+                 </div>
+                  <div class = "img-inform">
+                 <h2 class ="img-title">Views</h2>
+                 <p class = "img-text">${a}</p>
+                 </div>
+                  <div class = "img-inform">
+                 <h2 class ="img-title">Comments</h2>
+                 <p class = "img-text">${g}</p>
+                 </div>
+                  <div class = "img-inform">
+                 <h2 class ="img-title">Downloads</h2>
+                 <p class = "img-text">${f}</p>
+                 </div></div>
+    </li>`).join("")}function L(r){r.style.display="block"}function l(r){r.style.display="none"}const m=document.querySelector(".gallery"),u=document.querySelector(".search-form"),c=document.querySelector(".loading-indicator");u.addEventListener("submit",b);function b(r){r.preventDefault(),m.innerHTML="";const i=r.currentTarget.elements.search.value.trim();if(i==="")return n.error({title:"Error",message:"Please enter a search images",position:"topRight"});L(c),y(i).then(o=>{if(console.log(o),o.hits.length===0)return l(c),n.error({title:"Error",message:"Sorry, there are no images matching your search query. Please try again!",position:"topRight"});u.reset(),m.innerHTML=v(o.hits),P.refresh()}).catch(o=>{n.error({title:"Error",message:'"Sorry, there are no images matching your search query. Please try again!"',position:"topRight"})}).finally(()=>{l(c)})}let P=new h(".gallery a",{captions:!0,captionsData:"alt",captionPosition:"bottom",captionDelay:250});
 //# sourceMappingURL=commonHelpers.js.map
